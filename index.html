@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personaliza tu Plataforma — Ascend</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8f9fa;
+      --surface: #ffffff;
+      --border: rgba(0,0,0,0.1);
+      --steel: #8b95a5;
+      --steel-dark: #6b7580;
+      --purple: #9026DA;
+      --text-dark: #1a1a1a;
+      --muted: rgba(0,0,0,0.5);
+      --radius: 16px;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffffff 0%, #e8eaed 100%);
+      color: var(--text-dark);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* BACKGROUND GLOW */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 50% 20%, rgba(139,149,165,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 50% 80%, rgba(107,117,128,0.06) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 32px 80px;
+      transform: scale(1.3);
+      transform-origin: top center;
+    }
+
+    /* HEADER */
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .logo-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    .logo-mark img { 
+      height: 96px; 
+      width: auto;
+    }
+
+    .logo-text {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--steel-dark);
+    }
+
+    .header h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.1s ease forwards;
+    }
+
+    .header h1 span {
+      background: linear-gradient(90deg, var(--steel), var(--steel-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header p {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 420px;
+      margin: 0 auto;
+      line-height: 1.6;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.2s ease forwards;
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--surface);
+      border: 3px solid #c0c5cc;
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, border-width 0.25s ease;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.15s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.25s; }
+    .card:nth-child(4) { animation-delay: 0.3s; }
+    .card:nth-child(5) { animation-delay: 0.35s; }
+    .card:nth-child(6) { animation-delay: 0.4s; }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+    }
+
+    .card.selected {
+      border: 5px solid var(--steel) !important;
+      box-shadow: 0 0 20px rgba(139,149,165,0.6), 0 0 40px rgba(139,149,165,0.4);
+    }
+
+    .card.selected .check {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* CHECK BADGE */
+    .check {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 56px;
+      height: 56px;
+      background: var(--steel);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 2;
+    }
+
+    .check svg { width: 28px; height: 28px; }
+
+    /* PREVIEW IMAGE */
+    .card-img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: contain;
+      display: block;
+      border-bottom: 1px solid var(--border);
+      background: #1a1a24;
+    }
+
+    /* PALETTE SWATCHES */
+    .swatches {
+      display: none;
+    }
+
+    /* CARD INFO */
+    .card-info {
+      padding: 10px 16px 16px;
+    }
+
+    .card-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 3px;
+      color: var(--text-dark);
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* SELECT BUTTON INSIDE CARD */
+    .card-btn {
+      display: block;
+      width: calc(100% - 32px);
+      margin: 0 16px 16px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .card:hover .card-btn {
+      border-color: var(--steel);
+      color: var(--text-dark);
+      background: rgba(139,149,165,0.1);
+    }
+
+    .card.selected .card-btn {
+      background: linear-gradient(135deg, var(--steel), var(--steel-dark));
+      border-color: transparent;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* FORM SECTION */
+    .form-section {
+      background: #ffffff;
+      border: 3px solid #c0c5cc;
+      border-radius: var(--radius);
+      padding: 32px;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.5s ease forwards;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .form-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #1a1a1a;
+    }
+
+    .form-subtitle {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 24px;
+    }
+
+    .selected-preview {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: rgba(139,149,165,0.1);
+      border: 1px solid rgba(139,149,165,0.3);
+      border-radius: 10px;
+      margin-bottom: 18px;
+      font-size: 15px;
+      color: var(--steel-dark);
+      font-weight: 500;
+      min-height: 42px;
+    }
+
+    .selected-preview.empty {
+      color: var(--muted);
+      border-color: var(--border);
+      background: transparent;
+    }
+
+    .selected-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--steel);
+      flex-shrink: 0;
+    }
+
+    .form-group { margin-bottom: 16px; }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 6px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      height: 48px;
+      padding: 0 16px;
+      background: #ffffff;
+      border: 3px solid #c0c5cc;
+      border-radius: 10px;
+      color: var(--text-dark);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus {
+      border-color: var(--steel);
+    }
+
+    input[type="text"]::placeholder,
+    input[type="email"]::placeholder { color: rgba(0,0,0,0.3); }
+
+    .submit-btn {
+      width: 100%;
+      height: 54px;
+      background: linear-gradient(135deg, #4a5159 0%, #2d3238 100%);
+      border: 3px solid #3a4048;
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      margin-top: 8px;
+      letter-spacing: 0.02em;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .submit-btn:hover { 
+      opacity: 0.9; 
+      transform: translateY(-2px); 
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+    .submit-btn:active { transform: translateY(0); }
+    .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    /* SUCCESS */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 24px 0 8px;
+    }
+
+    .success-msg .icon {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, var(--steel), var(--steel-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .success-msg h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .success-msg p { font-size: 15px; color: var(--muted); }
+
+    /* ERROR */
+    .error-msg {
+      display: none;
+      font-size: 14px;
+      color: #ff4d4d;
+      margin-top: 8px;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 540px) {
+      .grid { grid-template-columns: 1fr; }
+      .wrapper { padding: 32px 16px 48px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo-mark">
+      <img src="img/logo ascend.png" alt="Ascend Logo" />
+    </div>
+    <h1>Elige el estilo de<br/><span>tu plataforma</span></h1>
+    <p>Selecciona una paleta visual para personalizar la apariencia de tu CRM.</p>
+  </div>
+
+  <!-- GRID DE PALETAS -->
+  <div class="grid" id="themeGrid">
+
+    <!-- CARD 1 -->
+    <div class="card" data-theme="1" data-name="White" onclick="selectTheme(this)">
+      <div class="check">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <img class="card-img" src="img/img1.png" alt="White" />
+      <div class="swatches">
+        <div class="swatch" style="background:#050505;"></div>
+        <div class="swatch" style="background:#FF8000;"></div>
+        <div class="swatch" style="background:#9026DA;"></div>
+      </div>
+      <div class="card-info">
+        <div class="card-name">White</div>
+        <div class="card-desc">Elegante blanco minimalista </div>
+      </div>
+      <button class="card-btn" tabindex="-1">Seleccionar</button>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="card" data-theme="2" data-name="Black Purple" onclick="selectTheme(this)">
+      <div class="check">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <img class="card-img" src="img/img2.png" alt="Black Purple" />
+      <div class="swatches">
+        <div class="swatch" style="background:#020B18;"></div>
+        <div class="swatch" style="background:#0070F3;"></div>
+        <div class="swatch" style="background:#00C2FF;"></div>
+      </div>
+      <div class="card-info">
+        <div class="card-name">Black Purple</div>
+        <div class="card-desc">Profesional combinacion de negro y purpura</div>
+      </div>
+      <button class="card-btn" tabindex="-1">Seleccionar</button>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="card" data-theme="3" data-name="Dark Navy" onclick="selectTheme(this)">
+      <div class="check">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <img class="card-img" src="img/img3.png" alt="Dark Navy" />
+      <div class="swatches">
+        <div class="swatch" style="background:#050F08;"></div>
+        <div class="swatch" style="background:#00C853;"></div>
+        <div class="swatch" style="background:#1DE9B6;"></div>
+      </div>
+      <div class="card-info">
+        <div class="card-name">Dark Navy</div>
+        <div class="card-desc">Moderno azul marino oscuro.</div>
+      </div>
+      <button class="card-btn" tabindex="-1">Seleccionar</button>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="card" data-theme="4" data-name="Dark Green" onclick="selectTheme(this)">
+      <div class="check">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <img class="card-img" src="img/img4.png" alt="Dark Green" />
+      <div class="swatches">
+        <div class="swatch" style="background:#110A0A;"></div>
+        <div class="swatch" style="background:#E8836A;"></div>
+        <div class="swatch" style="background:#FFD700;"></div>
+      </div>
+      <div class="card-info">
+        <div class="card-name">Dark Green</div>
+        <div class="card-desc">Sofisticado con verde esmeralda oscuro.</div>
+      </div>
+      <button class="card-btn" tabindex="-1">Seleccionar</button>
+    </div>
+
+    <!-- CARD 5 -->
+    <div class="card" data-theme="5" data-name="Dark Gray" onclick="selectTheme(this)">
+      <div class="check">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <img class="card-img" src="img/img5.png" alt="Dark Gray" />
+      <div class="swatches">
+        <div class="swatch" style="background:#F4F6FA;border-color:rgba(0,0,0,0.1);"></div>
+        <div class="swatch" style="background:#1A1A2E;"></div>
+        <div class="swatch" style="background:#6C63FF;"></div>
+      </div>
+      <div class="card-info">
+        <div class="card-name">Dark Gray</div>
+        <div class="card-desc">Minimalista claro con sidebar gris.</div>
+      </div>
+      <button class="card-btn" tabindex="-1">Seleccionar</button>
+    </div>
+
+    <!-- CARD 6 -->
+    <div class="card" data-theme="6" data-name="Dark Night" onclick="selectTheme(this)">
+      <div class="check">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <img class="card-img" src="img/img6.png" alt="Dark Night" />
+      <div class="swatches">
+        <div class="swatch" style="background:#0D0205;"></div>
+        <div class="swatch" style="background:#E3002C;"></div>
+        <div class="swatch" style="background:#FF6B6B;"></div>
+      </div>
+      <div class="card-info">
+        <div class="card-name">Dark Night</div>
+        <div class="card-desc">Impactante con sidebar gris oscuro y negro intenso.</div>
+      </div>
+      <button class="card-btn" tabindex="-1">Seleccionar</button>
+    </div>
+
+  </div>
+
+  <!-- FORM SECTION -->
+  <div class="form-section">
+    <div id="formContent">
+      <div class="form-title">Confirma tu selección</div>
+      <div class="form-subtitle">Ingresa el ID de tu cuenta para aplicar el tema.</div>
+
+      <div class="selected-preview empty" id="selectedPreview">
+        <span style="font-size:11px;">↑ Elige una paleta arriba</span>
+      </div>
+
+      <div class="form-group">
+        <label for="accountId">ID de la Cuenta</label>
+        <input type="text" id="accountId" placeholder="Ej: whVx3UR9tm4TtOSuXhY1" />
+        <div class="error-msg" id="errorMsg">Por favor ingresa un ID válido.</div>
+      </div>
+
+      <button class="submit-btn" id="submitBtn" onclick="handleSubmit()" disabled>
+        Aplicar tema
+      </button>
+    </div>
+
+    <div class="success-msg" id="successMsg">
+      <div class="icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M4 12l5 5L20 7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3>¡Tema aplicado!</h3>
+      <p>Tu plataforma se actualizará en unos segundos.<br/>Puedes cerrar esta ventana.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Lee locationId automático desde URL
+  const params = new URLSearchParams(window.location.search);
+  const locationId = params.get('locationId') || 'sin-location';
+
+  let selectedTheme = null;
+  let selectedName = null;
+
+  // URL del Cloudflare Worker
+  const WORKER_URL = 'https://ascend-estilos.diegocaso-ascend.workers.dev';
+
+  function selectTheme(card) {
+    // Deselecciona todas
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+
+    // Selecciona la clickeada
+    card.classList.add('selected');
+    selectedTheme = card.dataset.theme;
+    selectedName = card.dataset.name;
+
+    // Actualiza preview
+    const preview = document.getElementById('selectedPreview');
+    preview.classList.remove('empty');
+    preview.innerHTML = `
+      <div class="selected-dot"></div>
+      <span>Seleccionado: <strong>${selectedName}</strong></span>
+    `;
+
+    // Habilita botón si hay email
+    checkReady();
+  }
+
+  document.getElementById('accountId').addEventListener('input', () => {
+    document.getElementById('errorMsg').style.display = 'none';
+    checkReady();
+  });
+
+  function checkReady() {
+    const accountId = document.getElementById('accountId').value.trim();
+    const valid = selectedTheme && accountId.length > 3;
+    document.getElementById('submitBtn').disabled = !valid;
+  }
+
+  async function handleSubmit() {
+    const accountId = document.getElementById('accountId').value.trim();
+
+    if (accountId.length < 3) {
+      document.getElementById('errorMsg').style.display = 'block';
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    try {
+      const response = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          accountId,
+          locationId,
+          theme: selectedTheme,
+          themeName: selectedName,
+          timestamp: new Date().toISOString()
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al enviar los datos');
+      }
+
+      // Muestra éxito
+      document.getElementById('formContent').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Aplicar tema';
+      alert('Error al enviar. Por favor intenta de nuevo.');
+    }
+  }
+</script>
+</body>
+</html>
