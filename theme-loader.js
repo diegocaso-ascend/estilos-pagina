@@ -8,14 +8,14 @@
   const CACHE_KEY = 'ascend_theme_cache_v1';
   const CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutos
 
-  // Mapeo de temas a repos
+  // Mapeo de temas a repos (debe coincidir con el Worker de Cloudflare)
   const THEME_REPOS = [
-    'ascend-style-white',
-    'ascend-style-Black-Purple',
-    'ascend-style-Dark-Navy',
-    'ascend-style-Dark-Green',
-    'ascend-style-Dark-Gray',
-    'ascend-style-Dark-Night'
+    'ascend-style-white',           // Tema 1
+    'ascend-style-Black-Purple',    // Tema 2
+    'ascend-style-Dark-Navy',       // Tema 3
+    'ascend-style-Dark-Green',      // Tema 4
+    'ascend-style-Dark-Gray',       // Tema 5
+    'ascend-style-Dark-Night'       // Tema 6
   ];
 
   let appliedTheme = null;
@@ -87,11 +87,11 @@
     const oldStyle = document.getElementById('ascend-theme-css');
     if (oldStyle) oldStyle.remove();
     
-    // Crear nuevo link
+    // Crear nuevo link usando GitHub Pages (evita problemas de CORS)
     const link = document.createElement('link');
     link.id = 'ascend-theme-css';
     link.rel = 'stylesheet';
-    link.href = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${repo}/main/dark.css?t=${Date.now()}`;
+    link.href = `https://${GITHUB_OWNER}.github.io/${repo}/dark.css?t=${Date.now()}`;
     
     document.head.appendChild(link);
     appliedTheme = repo;
