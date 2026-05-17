@@ -1,0 +1,460 @@
+/* ============================================================
+   ASCEND DARK GREEN THEME (VERDE PASTEL)
+   Paleta: Verde teal oscuro con acentos coral
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --sb-bg:    #1E4545;
+  --sb-red:   #E63B4A;
+  --sb-teal:  #8ECECE;
+  --sb-cream: #F0F5EE;
+}
+
+body, p, label, input, button, a, h1, h2, h3,
+span:not([class*="icon"]):not([class*="fa"]):not(.fa):not(.fas):not(.material-icons),
+div:not([class*="icon"]):not([class*="fa"]):not(.fa):not(.fas):not(.material-icons) {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    letter-spacing: -0.01em !important;
+}
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
+.hl_login {
+    background-color: var(--sb-bg) !important;
+    background-image:
+        radial-gradient(circle at top left, rgba(142, 206, 206, 0.2), transparent 45%),
+        radial-gradient(circle at bottom right, rgba(230, 59, 74, 0.18), transparent 45%) !important;
+    min-height: 100vh !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    position: relative !important;
+}
+
+.hl_login .hl_login--header {
+    position: static !important;
+    background: transparent !important;
+    border: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+}
+
+.hl_login img:not(.hl_login--body img):not(.card img) {
+    position: fixed !important;
+    top: 35px !important;
+    left: 35px !important;
+    max-width: 250px !important;
+    max-height: 75px !important;
+    margin: 0 !important;
+    z-index: 99999 !important;
+    filter: none !important;
+    object-fit: contain !important;
+}
+
+.hl_login .hl_login--language-selector,
+label.language-label,
+select.removeShadow,
+.hl_login .hl_login--header select,
+.hl_login .hl_login--header label {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.hl_login .hl_login--body {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 90% !important;
+    max-width: 480px !important;
+    height: auto !important;
+    z-index: 1000 !important;
+}
+
+.hl_login .card {
+    background-color: rgba(30, 69, 69, 0.82) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(142, 206, 206, 0.25) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4) !important;
+    padding: 35px 45px 25px 45px !important;
+}
+
+.hl_login label,
+.hl_login p,
+.hl_login a,
+.hl_login span { color: var(--sb-cream) !important; }
+
+.hl_login h2 {
+    font-size: 0 !important;
+    visibility: hidden !important;
+    margin: 0 0 15px 0 !important;
+}
+.hl_login h2::after {
+    content: "Ingresa tus datos";
+    visibility: visible !important;
+    font-size: 26px !important;
+    color: var(--sb-cream) !important;
+    display: block !important;
+    font-weight: 700 !important;
+}
+
+.hl_login .form-group { margin-bottom: 15px !important; }
+
+.hl_login .divider { display: none !important; }
+
+.hl_login .form-control,
+.hl_login input:not([type="radio"]) {
+    background-color: rgba(30, 69, 69, 0.55) !important;
+    border: 1px solid rgba(142, 206, 206, 0.3) !important;
+    color: var(--sb-cream) !important;
+    border-radius: 10px !important;
+    height: 48px !important;
+}
+.hl_login .form-control:focus {
+    border-color: var(--sb-teal) !important;
+    box-shadow: 0 0 0 2px rgba(142, 206, 206, 0.2) !important;
+}
+
+.hl_login input::placeholder { color: transparent !important; }
+
+.hl_login .btn-primary,
+.hl_login button[type="submit"] {
+    background: var(--sb-red) !important;
+    border: 2px solid var(--sb-red) !important;
+    border-radius: 10px !important;
+    color: var(--sb-cream) !important;
+    font-weight: 700 !important;
+    height: 50px !important;
+    transition: all 0.25s ease !important;
+}
+.hl_login .btn-primary:hover,
+.hl_login button[type="submit"]:hover {
+    background: var(--sb-cream) !important;
+    color: var(--sb-red) !important;
+    border-color: var(--sb-cream) !important;
+}
+
+#wl_google_login_button {
+    background-color: var(--sb-cream) !important;
+    border: 1px solid rgba(30, 69, 69, 0.2) !important;
+    border-radius: 10px !important;
+    height: 48px !important;
+    margin-top: 25px !important;
+}
+#wl_google_login_button span { color: var(--sb-bg) !important; }
+
+.hl_login .powered-by,
+.hl_login .hl_login--footer { display: none !important; }
+
+#forgot_passowrd_btn {
+    font-size: 0 !important;
+    text-align: right !important;
+    margin-top: 5px !important;
+}
+#forgot_passowrd_btn::after {
+    content: "¿Olvidaste tu contraseña?" !important;
+    font-size: 13px !important;
+    color: var(--sb-teal) !important;
+    visibility: visible !important;
+}
+#forgot_passowrd_btn:hover::after {
+    color: var(--sb-cream) !important;
+    text-decoration: underline !important;
+}
+
+.hl_login .control.radio {
+    display: flex !important;
+    align-items: center !important;
+    background: rgba(142, 206, 206, 0.07) !important;
+    border: 1px solid rgba(142, 206, 206, 0.2) !important;
+    border-radius: 10px !important;
+    padding: 15px !important;
+    margin-bottom: 15px !important;
+}
+.hl_login .control.radio:hover {
+    background: rgba(230, 59, 74, 0.12) !important;
+    border-color: var(--sb-red) !important;
+}
+.hl_login .control.radio input[type="radio"] {
+    margin-right: 15px !important;
+    accent-color: var(--sb-red) !important;
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+#sidebar-v2,
+#sidebar-v2 .default-bg-color,
+.lead-connector {
+    background-color: var(--sb-bg) !important;
+    border-right: 1px solid rgba(142, 206, 206, 0.15) !important;
+}
+
+#sidebar-v2 ::-webkit-scrollbar { width: 6px !important; }
+#sidebar-v2 ::-webkit-scrollbar-track { background: transparent !important; }
+#sidebar-v2 ::-webkit-scrollbar-thumb { background: var(--sb-teal) !important; border-radius: 10px !important; }
+#sidebar-v2 ::-webkit-scrollbar-thumb:hover { background: var(--sb-red) !important; }
+
+#backButtonv2 {
+    background-color: rgba(142, 206, 206, 0.08) !important;
+    border: 1px solid rgba(142, 206, 206, 0.18) !important;
+    border-radius: 8px !important;
+    margin-bottom: 10px !important;
+    transition: all 0.25s ease !important;
+}
+#backButtonv2:hover {
+    background-color: var(--sb-red) !important;
+    border-color: var(--sb-red) !important;
+}
+#backButtonv2 i, #backButtonv2 span {
+    color: var(--sb-teal) !important;
+    transition: color 0.25s ease !important;
+}
+#backButtonv2:hover i, #backButtonv2:hover span { color: var(--sb-cream) !important; }
+
+#sidebar-v2 .menu-title {
+    color: var(--sb-cream) !important;
+    font-weight: 800 !important;
+    border-bottom: 1px solid rgba(142, 206, 206, 0.15) !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+#location-switcher-sidbar-v2 {
+    background-color: rgba(142, 206, 206, 0.05) !important;
+    border: 1px solid rgba(142, 206, 206, 0.18) !important;
+    border-radius: 10px !important;
+    transition: all 0.25s ease !important;
+}
+#location-switcher-sidbar-v2:hover {
+    background-color: var(--sb-red) !important;
+}
+#location-switcher-sidbar-v2 span,
+#location-switcher-sidbar-v2 div { color: var(--sb-cream) !important; }
+
+#sidebar-v2 nav a {
+    transition: all 0.25s ease !important;
+    border-radius: 8px !important;
+    margin-bottom: 4px !important;
+    border-left: 3px solid transparent !important;
+}
+
+#sidebar-v2 nav a span,
+#sidebar-v2 nav a i {
+    color: var(--sb-teal) !important;
+    transition: all 0.25s ease !important;
+}
+
+#sidebar-v2 nav a:hover {
+    background-color: var(--sb-red) !important;
+    border-left-color: var(--sb-cream) !important;
+    box-shadow: 0 2px 12px rgba(230, 59, 74, 0.35) !important;
+}
+#sidebar-v2 nav a:hover span,
+#sidebar-v2 nav a:hover i {
+    color: var(--sb-cream) !important;
+    transform: translateX(3px) !important;
+}
+
+#sidebar-v2 nav a.active,
+#sidebar-v2 nav a.exact-active {
+    background-color: rgba(230, 59, 74, 0.18) !important;
+    border-left: 3px solid var(--sb-red) !important;
+    box-shadow: 0 0 14px rgba(230, 59, 74, 0.15) !important;
+}
+#sidebar-v2 nav a.active span,
+#sidebar-v2 nav a.exact-active span,
+#sidebar-v2 nav a.active i,
+#sidebar-v2 nav a.exact-active i {
+    color: var(--sb-cream) !important;
+    font-weight: 700 !important;
+}
+
+/* ============================================================
+   DESPLEGABLE DE CUENTAS
+   ============================================================ */
+.hl_v2-location_switcher {
+    background-color: var(--sb-bg) !important;
+    border: 1px solid rgba(142, 206, 206, 0.25) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4) !important;
+}
+
+.hl_v2-location_switcher .search-area input[type="search"] {
+    background-color: rgba(142, 206, 206, 0.07) !important;
+    border: 1px solid rgba(142, 206, 206, 0.2) !important;
+    color: var(--sb-cream) !important;
+    border-radius: 8px !important;
+}
+.hl_v2-location_switcher .search-area input[type="search"]:focus {
+    border-color: var(--sb-teal) !important;
+}
+
+.hl_swicher-heading {
+    color: var(--sb-teal) !important;
+    font-weight: 800 !important;
+    border-bottom: 1px solid rgba(142, 206, 206, 0.2) !important;
+}
+
+.hl_account {
+    border-radius: 8px !important;
+    padding: 8px !important;
+    border: 1px solid rgba(142, 206, 206, 0.12) !important;
+    margin-bottom: 6px !important;
+    transition: all 0.25s ease !important;
+}
+.hl_account:hover {
+    background: var(--sb-red) !important;
+    transform: translateX(3px) !important;
+    box-shadow: 0 2px 12px rgba(230, 59, 74, 0.3) !important;
+}
+.hl_account:hover .hl_location-recent,
+.hl_account:hover .hl_location-title,
+.hl_account:hover span { color: var(--sb-cream) !important; }
+
+.hl_location-recent,
+.hl_location-title {
+    color: var(--sb-cream) !important;
+    font-weight: 700 !important;
+}
+
+.hl_account .bg-gray-200 {
+    background-color: rgba(142, 206, 206, 0.2) !important;
+    color: var(--sb-cream) !important;
+    border: 1px solid rgba(142, 206, 206, 0.4) !important;
+}
+
+/* ============================================================
+   TOPBAR
+   ============================================================ */
+.hl_header {
+    background-color: var(--sb-bg) !important;
+    border-bottom: 1px solid rgba(142, 206, 206, 0.12) !important;
+}
+
+.hl_header .btn-circle,
+.hl_header .feedback-toggle-btn,
+.hl_header button.rounded-full {
+    background: var(--sb-teal) !important;
+    border: none !important;
+    transition: all 0.25s ease !important;
+}
+
+#hl_header--help-icon {
+    background: transparent !important;
+    box-shadow: inset 0 0 0 50px var(--sb-teal) !important;
+    border: 2px solid var(--sb-teal) !important;
+    border-radius: 50% !important;
+}
+
+.hl_header .btn-circle i {
+    color: var(--sb-bg) !important;
+}
+
+.hl_header .btn-circle:hover {
+    background: var(--sb-red) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 14px rgba(230, 59, 74, 0.4) !important;
+}
+.hl_header .btn-circle:hover i {
+    color: var(--sb-cream) !important;
+}
+
+#hl_header--help-icon:hover {
+    box-shadow: inset 0 0 0 50px var(--sb-red) !important;
+    border-color: var(--sb-red) !important;
+}
+
+.hl_header .Canny_Badge,
+.hl_header .bg-danger {
+    background-color: var(--sb-red) !important;
+}
+
+.hl_header .avatar .avatar_img {
+    background-color: var(--sb-teal) !important;
+    color: var(--sb-bg) !important;
+    transition: all 0.25s ease !important;
+}
+.hl_header .avatar:hover .avatar_img {
+    background-color: var(--sb-red) !important;
+    color: var(--sb-cream) !important;
+}
+
+/* ============================================================
+   SCROLLBARS
+   ============================================================ */
+#location-dashboard::-webkit-scrollbar,
+.n-scrollbar::-webkit-scrollbar { width: 6px !important; }
+#location-dashboard::-webkit-scrollbar-thumb,
+.n-scrollbar::-webkit-scrollbar-thumb { background: var(--sb-teal) !important; border-radius: 10px !important; }
+#location-dashboard::-webkit-scrollbar-thumb:hover,
+.n-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--sb-red) !important; }
+
+/* ============================================================
+   PESTAÑAS
+   ============================================================ */
+.topmenu-navitem span { color: var(--sb-teal) !important; }
+.topmenu-navitem:not(.active):hover span { color: var(--sb-cream) !important; }
+.topmenu-navitem.active { border-bottom-color: var(--sb-red) !important; }
+.topmenu-navitem.active span { color: var(--sb-cream) !important; }
+
+.n-tabs-tab:not(.n-tabs-tab--active):hover .n-tabs-tab__label { color: var(--sb-cream) !important; }
+.n-tabs-tab--active .n-tabs-tab__label { color: var(--sb-cream) !important; }
+.n-tabs-bar { background-color: var(--sb-red) !important; }
+
+/* ============================================================
+   CHECKBOXES
+   ============================================================ */
+.n-checkbox.n-checkbox--checked .n-checkbox-box {
+    background-color: var(--sb-cream) !important;
+    border-color: var(--sb-teal) !important;
+}
+.n-checkbox.n-checkbox--checked .n-checkbox-box .n-checkbox-icon {
+    color: var(--sb-bg) !important;
+}
+input[type="checkbox"] { accent-color: var(--sb-red) !important; }
+
+/* ============================================================
+   BOTONES
+   ============================================================ */
+.n-button--primary-type {
+    background-color: var(--sb-teal) !important;
+    border-color: var(--sb-teal) !important;
+    color: var(--sb-bg) !important;
+}
+.n-button--primary-type:hover {
+    background-color: var(--sb-red) !important;
+    color: var(--sb-cream) !important;
+}
+
+/* ============================================================
+   BUSCADOR GLOBAL
+   ============================================================ */
+#globalSearchOpener {
+    background-color: rgba(30, 69, 69, 0.85) !important;
+    border: 1px solid rgba(142, 206, 206, 0.3) !important;
+    border-radius: 8px !important;
+}
+#globalSearchOpener:hover {
+    border-color: var(--sb-teal) !important;
+}
+#globalSearchOpener .search-placeholder { color: var(--sb-teal) !important; }
+
+#quickActions {
+    background-color: var(--sb-red) !important;
+    border-radius: 8px !important;
+}
+#quickActions:hover { background-color: #c42d3a !important; }
+#quickActions img, #quickActions span { filter: brightness(0) invert(1) !important; }
+
+/* ============================================================
+   ALERTAS
+   ============================================================ */
+.hl_login .alert { color: #1a1a1a !important; }
