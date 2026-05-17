@@ -99,12 +99,23 @@
     console.log(`✅ Ascend Theme loaded: ${repo}`);
   }
 
+  // Remover tema CSS
+  function removeThemeCSS() {
+    const oldStyle = document.getElementById('ascend-theme-css');
+    if (oldStyle) {
+      oldStyle.remove();
+      appliedTheme = null;
+      console.log('🗑️ Theme CSS removed');
+    }
+  }
+
   // Aplicar tema
   async function applyTheme() {
     const locationId = getLocationId();
     
     if (!locationId) {
       console.warn('⚠️ No locationId found');
+      removeThemeCSS(); // Remover CSS si no hay locationId
       return;
     }
     
@@ -116,6 +127,7 @@
       loadThemeCSS(theme.repo);
     } else {
       console.log('ℹ️ No custom theme found for this location');
+      removeThemeCSS(); // Remover CSS si no hay tema para esta cuenta
     }
   }
 
@@ -123,14 +135,17 @@
   applyTheme();
 
   // Re-aplicar cuando cambie el DOM (para SPAs)
+  let lastLocationId = getLocationId();
+  
   const observer = new MutationObserver(() => {
     const currentLocationId = getLocationId();
-    if (currentLocationId && appliedTheme) {
-      // Verificar si el tema sigue siendo válido
-      const cachedData = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-      if (!cachedData || cachedData.locationId !== currentLocationId) {
-        applyTheme();
-      }
+    
+    // Si cambió el locationId, limpiar caché y re-aplicar
+    if (currentLocationId !== lastLocationId) {
+      lastLocationId = currentLocationId;
+      localStorage.removeItem(CACHE_KEY); // Limpiar caché al cambiar de cuenta
+      console.log('🔄 Location changed, reapplying theme...');
+      applyTheme();
     }
   });
 
