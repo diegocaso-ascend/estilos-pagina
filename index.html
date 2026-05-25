@@ -22,22 +22,10 @@
 
     html, body {
       min-height: 100vh;
-      background: linear-gradient(135deg, #ffffff 0%, #e8eaed 100%);
+      background: #ffffff;
       color: var(--text-dark);
       font-family: 'DM Sans', sans-serif;
       overflow-x: hidden;
-    }
-
-    /* BACKGROUND GLOW */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 40% at 50% 20%, rgba(139,149,165,0.08) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 50% at 50% 80%, rgba(107,117,128,0.06) 0%, transparent 60%);
-      pointer-events: none;
-      z-index: 0;
     }
 
     .wrapper {
@@ -79,20 +67,30 @@
 
     .header h1 {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(24px, 5vw, 36px);
-      font-weight: 800;
+      font-size: clamp(26px, 4.8vw, 42px);
+      font-weight: 900;
       line-height: 1.1;
-      letter-spacing: -0.02em;
+      letter-spacing: 0.02em;
       margin-bottom: 14px;
       opacity: 0;
       animation: fadeUp 0.6s 0.1s ease forwards;
+      text-transform: uppercase;
+      color: #1a1a1a;
+      text-shadow: 
+        2px 2px 0px rgba(139,149,165,0.3),
+        4px 4px 0px rgba(139,149,165,0.2),
+        6px 6px 0px rgba(139,149,165,0.1);
     }
 
     .header h1 span {
-      background: linear-gradient(90deg, var(--steel), var(--steel-dark));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      display: block;
+      color: #6b7580;
+      text-shadow: 
+        2px 2px 0px rgba(139,149,165,0.4),
+        4px 4px 0px rgba(139,149,165,0.25),
+        6px 6px 0px rgba(139,149,165,0.15);
+      font-weight: 900;
+      letter-spacing: 0.05em;
     }
 
     .header p {
