@@ -1,1 +1,724 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personaliza tu Plataforma — Ascend</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --bg: #f8f9fa;
+      --surface: #ffffff;
+      --border: rgba(0,0,0,0.1);
+      --steel: #8b95a5;
+      --steel-dark: #6b7580;
+      --purple: #9026DA;
+      --text-dark: #1a1a1a;
+      --muted: rgba(0,0,0,0.5);
+      --radius: 16px;
+      --green: #22c55e;
+      --orange: #f59e0b;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background: #ffffff;
+      color: var(--text-dark);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+    }
+
+    /* HEADER */
+    .header { text-align: center; margin-bottom: 48px; }
+
+    .logo-mark {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-bottom: 32px; opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+    .logo-mark img { height: 60px; width: auto; }
+    .logo-text {
+      font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--steel-dark);
+    }
+
+    .header h1 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(26px, 4.8vw, 42px); font-weight: 700;
+      line-height: 1.1; letter-spacing: 0.02em; margin-bottom: 14px;
+      opacity: 0; animation: fadeUp 0.6s 0.1s ease forwards;
+      color: #1a1a1a;
+      text-shadow: 2px 2px 0px rgba(139,149,165,0.3), 4px 4px 0px rgba(139,149,165,0.2), 6px 6px 0px rgba(139,149,165,0.1);
+    }
+    .header h1 span {
+      display: block; color: #6b7580; font-weight: 700;
+      text-shadow: 2px 2px 0px rgba(139,149,165,0.4), 4px 4px 0px rgba(139,149,165,0.25), 6px 6px 0px rgba(139,149,165,0.15);
+    }
+    .header p {
+      font-size: 14px; color: var(--muted); max-width: 420px;
+      margin: 0 auto; line-height: 1.6;
+      opacity: 0; animation: fadeUp 0.6s 0.2s ease forwards;
+    }
+
+    /* GRID */
+    .grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 20px; margin-bottom: 36px;
+    }
+
+    /* INFO CARDS */
+    .info-card {
+      background: var(--surface); border: 3px solid #c0c5cc;
+      border-radius: var(--radius); overflow: hidden; position: relative;
+      opacity: 0; animation: fadeUp 0.5s ease forwards;
+      padding: 24px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 180px;
+    }
+    .info-card.coming-soon {
+      animation-delay: 0.45s;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+    .info-card.custom-support {
+      animation-delay: 0.5s;
+      background: linear-gradient(135deg, #e8eaed 0%, #c5cad1 100%);
+      border-color: #8b95a5;
+      box-shadow: 0 4px 12px rgba(139,149,165,0.3), 0 0 20px rgba(139,149,165,0.2);
+    }
+    .info-card-title { font-family: 'DM Sans', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--text-dark); }
+    .info-card.coming-soon .info-card-title { color: var(--steel-dark); font-size: 28px; text-transform: uppercase; letter-spacing: 0.1em; }
+    .info-card.custom-support .info-card-title {
+      color: #5a6370; font-size: 18px; font-weight: 800; letter-spacing: 0.05em;
+      animation: pulse 2s ease-in-out infinite;
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.8), 0 0 10px rgba(139,149,165,0.5), 0 0 20px rgba(139,149,165,0.3);
+    }
+    .info-card-text { font-size: 15px; color: var(--muted); line-height: 1.6; max-width: 90%; }
+    .info-card.custom-support .info-card-text { color: #4a5159; font-weight: 500; }
+
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+
+    /* CARD */
+    .card {
+      background: var(--surface); border: 3px solid #c0c5cc;
+      border-radius: var(--radius); overflow: hidden; cursor: pointer;
+      position: relative; transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, border-width 0.25s ease;
+      opacity: 0; animation: fadeUp 0.5s ease forwards;
+    }
+    .card:nth-child(1){animation-delay:0.15s} .card:nth-child(2){animation-delay:0.2s}
+    .card:nth-child(3){animation-delay:0.25s} .card:nth-child(4){animation-delay:0.3s}
+    .card:nth-child(5){animation-delay:0.35s} .card:nth-child(6){animation-delay:0.4s}
+    .card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
+    .card.selected { border: 5px solid var(--steel) !important; box-shadow: 0 0 20px rgba(139,149,165,0.6), 0 0 40px rgba(139,149,165,0.4); }
+    .card.selected .check { opacity: 1; transform: scale(1); }
+
+    .check {
+      position: absolute; top: 12px; right: 12px;
+      width: 40px; height: 40px; background: var(--steel); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: scale(0.5); transition: opacity 0.2s ease, transform 0.2s ease; z-index: 2;
+    }
+    .check svg { width: 20px; height: 20px; }
+
+    .card-img {
+      width: 100%; aspect-ratio: 16/10; object-fit: contain; display: block;
+      border-bottom: 1px solid var(--border); background: #1a1a24;
+    }
+    .swatches { display: none; }
+    .card-info { padding: 10px 16px 16px; }
+    .card-name { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 3px; color: var(--text-dark); }
+    .card-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+    .card-btn {
+      display: block; width: calc(100% - 32px); margin: 0 16px 16px;
+      padding: 10px; border-radius: 8px; border: 1px solid var(--border);
+      background: transparent; color: var(--muted); font-family: 'DM Sans', sans-serif;
+      font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; text-align: center;
+    }
+    .card:hover .card-btn { border-color: var(--steel); color: var(--text-dark); background: rgba(139,149,165,0.1); }
+    .card.selected .card-btn { background: linear-gradient(135deg, var(--steel), var(--steel-dark)); border-color: transparent; color: #fff; font-weight: 700; }
+
+    /* ─── NUEVA SECCIÓN: LISTA DE SUBCUENTAS ─── */
+    .accounts-section {
+      background: #ffffff; border: 3px solid #c0c5cc;
+      border-radius: var(--radius); overflow: hidden;
+      opacity: 0; animation: fadeUp 0.6s 0.5s ease forwards;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 0;
+    }
+
+    .accounts-header {
+      padding: 24px 28px 20px;
+      border-bottom: 2px solid #f0f1f3;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+
+    .accounts-header-top {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+
+    .accounts-title {
+      font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; color: #1a1a1a;
+    }
+
+    .accounts-count {
+      font-size: 12px; font-weight: 600; color: var(--steel-dark);
+      background: #f0f1f3; padding: 4px 10px; border-radius: 20px; white-space: nowrap;
+    }
+
+    /* Buscador */
+    .search-wrap { position: relative; }
+    .search-wrap svg {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      width: 16px; height: 16px; color: var(--steel);
+    }
+    .search-input {
+      width: 100%; height: 42px; padding: 0 16px 0 40px;
+      background: #f8f9fa; border: 2px solid #e0e2e6; border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text-dark);
+      outline: none; transition: border-color 0.2s ease;
+    }
+    .search-input:focus { border-color: var(--steel); background: #fff; }
+    .search-input::placeholder { color: rgba(0,0,0,0.3); }
+
+    /* Lista */
+    .accounts-list {
+      max-height: 420px; overflow-y: auto;
+    }
+    .accounts-list::-webkit-scrollbar { width: 6px; }
+    .accounts-list::-webkit-scrollbar-track { background: #f8f9fa; }
+    .accounts-list::-webkit-scrollbar-thumb { background: #c0c5cc; border-radius: 3px; }
+
+    /* Fila de cuenta */
+    .account-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 28px; border-bottom: 1px solid #f0f1f3;
+      cursor: pointer; transition: background 0.15s ease;
+      position: relative;
+    }
+    .account-row:last-child { border-bottom: none; }
+    .account-row:hover { background: #f8f9fa; }
+    .account-row.selected-account {
+      background: linear-gradient(90deg, rgba(139,149,165,0.08) 0%, rgba(139,149,165,0.03) 100%);
+      border-left: 3px solid var(--steel);
+      padding-left: 25px;
+    }
+
+    /* Avatar/Logo */
+    .account-avatar {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: linear-gradient(135deg, #e0e2e6, #c8ccd2);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
+      color: var(--steel-dark); flex-shrink: 0; overflow: hidden;
+      border: 2px solid #e8eaed;
+    }
+    .account-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Info */
+    .account-info { flex: 1; min-width: 0; }
+    .account-name {
+      font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+      color: #1a1a1a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      margin-bottom: 3px;
+    }
+    .account-meta {
+      font-size: 12px; color: var(--muted); white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
+    }
+
+    /* Badge de estilo */
+    .theme-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: 20px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.03em;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .theme-badge.has-theme {
+      background: rgba(34,197,94,0.1); color: #16a34a; border: 1px solid rgba(34,197,94,0.3);
+    }
+    .theme-badge.no-theme {
+      background: rgba(0,0,0,0.04); color: #9ca3af; border: 1px solid rgba(0,0,0,0.08);
+    }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .has-theme .badge-dot { background: var(--green); }
+    .no-theme .badge-dot { background: #d1d5db; }
+
+    /* Check de selección en fila */
+    .row-check {
+      width: 22px; height: 22px; border-radius: 50%;
+      border: 2px solid #c0c5cc; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all 0.2s ease;
+    }
+    .account-row.selected-account .row-check {
+      background: var(--steel); border-color: var(--steel);
+    }
+    .row-check svg { display: none; width: 12px; height: 12px; }
+    .account-row.selected-account .row-check svg { display: block; }
+
+    /* Empty / Loading states */
+    .state-box {
+      padding: 48px 24px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+    }
+    .state-box svg { width: 40px; height: 40px; color: #c0c5cc; }
+    .state-box p { font-size: 14px; color: var(--muted); }
+
+    /* Skeletons */
+    .skeleton-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 28px; border-bottom: 1px solid #f0f1f3;
+    }
+    .skel {
+      background: linear-gradient(90deg, #f0f1f3 25%, #e8eaed 50%, #f0f1f3 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite; border-radius: 6px;
+    }
+    .skel-avatar { width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0; }
+    .skel-lines { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+    .skel-line { height: 12px; }
+    .skel-line.short { width: 60%; }
+    .skel-badge { width: 80px; height: 24px; border-radius: 20px; flex-shrink: 0; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+    /* FOOTER DE ACCIÓN */
+    .action-footer {
+      padding: 20px 28px; border-top: 2px solid #f0f1f3;
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+
+    .selection-info {
+      flex: 1; min-width: 0;
+    }
+    .selection-info-label { font-size: 12px; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+    .selection-info-value { font-size: 14px; font-weight: 600; color: #1a1a1a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .selection-info-value.placeholder { color: var(--muted); font-weight: 400; }
+
+    .apply-btn {
+      height: 48px; padding: 0 28px;
+      background: linear-gradient(135deg, #4a5159 0%, #2d3238 100%);
+      border: 3px solid #3a4048; border-radius: 12px;
+      color: #fff; font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      letter-spacing: 0.02em; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .apply-btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.3); }
+    .apply-btn:active:not(:disabled) { transform: translateY(0); }
+    .apply-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+    /* SUCCESS toast */
+    .toast {
+      position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: #1a1a1a; color: #fff; padding: 14px 24px; border-radius: 12px;
+      font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 10px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3); z-index: 999;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease;
+      opacity: 0; pointer-events: none;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    .toast-icon { width: 22px; height: 22px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+    /* Error toast */
+    .toast.error { background: #ff4d4d; }
+    .toast.error .toast-icon { background: rgba(255,255,255,0.3); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+    /* RESPONSIVE */
+    @media (max-width: 540px) {
+      .grid { grid-template-columns: 1fr; }
+      .wrapper { padding: 32px 16px 48px; }
+      .account-row { padding: 12px 16px; }
+      .accounts-header { padding: 18px 16px 14px; }
+      .action-footer { padding: 16px; }
+      .skeleton-row { padding: 12px 16px; }
+      .apply-btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo-mark">
+      <img src="img/logo ascend.png" alt="Ascend Logo" />
+    </div>
+    <h1>Elige el Estilo de<br/><span>tu Plataforma</span></h1>
+    <p>Selecciona una paleta visual para personalizar la apariencia de tu CRM.</p>
+  </div>
+
+  <!-- GRID DE PALETAS -->
+  <div class="grid" id="themeGrid">
+
+    <div class="card" data-theme="1" data-name="White" onclick="selectTheme(this)">
+      <div class="check"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <img class="card-img" src="img/img1.png" alt="White" />
+      <div class="card-info">
+        <div class="card-name">White</div>
+        <div class="card-desc">Elegante blanco minimalista</div>
+      </div>
+      <button class="card-btn" tabindex="-1">Seleccionar</button>
+    </div>
+
+    <div class="card" data-theme="2" data-name="Black Purple" onclick="selectTheme(this)">
+      <div class="check"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <img class="card-img" src="img/img2.png" alt="Black Purple" />
+      <div class="card-info">
+        <div class="card-name">Black Purple</div>
+        <div class="card-desc">Profesional combinación de negro y púrpura</div>
+      </div>
+      <button class="card-btn" tabindex="-1">Seleccionar</button>
+    </div>
+
+    <div class="card" data-theme="3" data-name="Dark Navy" onclick="selectTheme(this)">
+      <div class="check"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <img class="card-img" src="img/img3.png" alt="Dark Navy" />
+      <div class="card-info">
+        <div class="card-name">Dark Navy</div>
+        <div class="card-desc">Moderno azul marino oscuro</div>
+      </div>
+      <button class="card-btn" tabindex="-1">Seleccionar</button>
+    </div>
+
+    <div class="card" data-theme="4" data-name="Dark Green" onclick="selectTheme(this)">
+      <div class="check"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <img class="card-img" src="img/img4.png" alt="Dark Green" />
+      <div class="card-info">
+        <div class="card-name">Dark Green</div>
+        <div class="card-desc">Sofisticado verde oscuro</div>
+      </div>
+      <button class="card-btn" tabindex="-1">Seleccionar</button>
+    </div>
+
+    <div class="card" data-theme="5" data-name="Dark Gray" onclick="selectTheme(this)">
+      <div class="check"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <img class="card-img" src="img/img5.png" alt="Dark Gray" />
+      <div class="card-info">
+        <div class="card-name">Dark Gray</div>
+        <div class="card-desc">Minimalista claro con sidebar gris</div>
+      </div>
+      <button class="card-btn" tabindex="-1">Seleccionar</button>
+    </div>
+
+    <div class="card" data-theme="6" data-name="Dark Night" onclick="selectTheme(this)">
+      <div class="check"><svg viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <img class="card-img" src="img/img6.png" alt="Dark Night" />
+      <div class="card-info">
+        <div class="card-name">Dark Night</div>
+        <div class="card-desc">Impactante con sidebar gris oscuro y negro intenso</div>
+      </div>
+      <button class="card-btn" tabindex="-1">Seleccionar</button>
+    </div>
+
+  </div>
+
+  <!-- INFO CARDS -->
+  <div class="grid">
+    <div class="info-card coming-soon">
+      <div class="info-card-title">🎨 Próximamente</div>
+      <div class="info-card-text">Nuevos estilos en camino...</div>
+    </div>
+    <div class="info-card custom-support">
+      <div class="info-card-title">✨ ¿Necesitas algo único?</div>
+      <div class="info-card-text">Si deseas un estilo más personalizado, comunícate con el área de soporte técnico.</div>
+    </div>
+  </div>
+
+  <!-- ─── NUEVA SECCIÓN: SUBCUENTAS ─── -->
+  <div class="accounts-section">
+
+    <div class="accounts-header">
+      <div class="accounts-header-top">
+        <span class="accounts-title">Subcuentas del Reseller</span>
+        <span class="accounts-count" id="accountsCount">Cargando...</span>
+      </div>
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <input class="search-input" id="searchInput" type="text" placeholder="Buscar subcuenta por nombre..." oninput="filterAccounts()" />
+      </div>
+    </div>
+
+    <!-- Lista -->
+    <div class="accounts-list" id="accountsList">
+      <!-- Skeletons mientras carga -->
+      <div id="skeletonState">
+        ${[1,2,3,4,5].map(() => `
+        <div class="skeleton-row">
+          <div class="skel skel-avatar"></div>
+          <div class="skel-lines">
+            <div class="skel skel-line" style="width:55%"></div>
+            <div class="skel skel-line short"></div>
+          </div>
+          <div class="skel skel-badge"></div>
+        </div>`).join('')}
+      </div>
+      <div id="emptyState" class="state-box" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <p>No se encontraron subcuentas con ese nombre.</p>
+      </div>
+      <div id="errorState" class="state-box" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <p id="errorStateMsg">Error al cargar las subcuentas.</p>
+      </div>
+      <div id="rowsContainer"></div>
+    </div>
+
+    <!-- Footer de acción -->
+    <div class="action-footer">
+      <div class="selection-info">
+        <div class="selection-info-label">Aplicar a</div>
+        <div class="selection-info-value placeholder" id="selectionDisplay">
+          ↑ Elige un tema y selecciona una subcuenta
+        </div>
+      </div>
+      <button class="apply-btn" id="applyBtn" disabled onclick="handleApply()">
+        Aplicar tema
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <div class="toast-icon">
+    <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+      <path d="M2 7l3.5 3.5L12 4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <span id="toastMsg">¡Tema aplicado correctamente!</span>
+</div>
+
+<script>
+  const WORKER_URL = 'https://ascend-estilos-v2.diegocaso.workers.dev';
+
+  let selectedTheme = null;
+  let selectedName  = null;
+  let selectedAccount = null;   // { locationId, name }
+  let allLocations  = [];       // datos crudos del worker
+
+  // ── Leer locationId desde URL ─────────────────────────────
+  function getLocationId() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('locationId') || params.get('location_id') || null;
+  }
+
+  // ── Iniciar carga de subcuentas ───────────────────────────
+  async function loadLocations() {
+    const locationId = getLocationId();
+    if (!locationId) {
+      showError('No se encontró el locationId en la URL. Asegúrate de que la URL tenga ?locationId={{location.id}}');
+      return;
+    }
+
+    try {
+      const res = await fetch(`${WORKER_URL}/locations?locationId=${locationId}`);
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || `Error ${res.status}`);
+      }
+      const data = await res.json();
+      allLocations = data.locations || [];
+      renderLocations(allLocations);
+      document.getElementById('accountsCount').textContent =
+        `${allLocations.length} subcuenta${allLocations.length !== 1 ? 's' : ''}`;
+    } catch (err) {
+      showError(`No se pudieron cargar las subcuentas: ${err.message}`);
+    }
+  }
+
+  // ── Renderizar filas ──────────────────────────────────────
+  function renderLocations(locations) {
+    document.getElementById('skeletonState').style.display = 'none';
+
+    const container = document.getElementById('rowsContainer');
+    container.innerHTML = '';
+
+    if (!locations.length) {
+      document.getElementById('emptyState').style.display = 'flex';
+      return;
+    }
+
+    document.getElementById('emptyState').style.display = 'none';
+
+    locations.forEach(loc => {
+      const row = document.createElement('div');
+      row.className = 'account-row';
+      row.dataset.locationId = loc.locationId;
+      row.dataset.name = loc.name;
+
+      const initials = loc.name
+        .split(' ').slice(0, 2).map(w => w[0] || '').join('').toUpperCase() || '?';
+
+      const hasTheme = !!loc.currentTheme;
+      const badgeClass = hasTheme ? 'has-theme' : 'no-theme';
+      const badgeText  = hasTheme ? loc.currentTheme.themeName : 'Sin estilo';
+
+      const meta = [loc.city, loc.country].filter(Boolean).join(', ') || loc.locationId;
+
+      row.innerHTML = `
+        <div class="account-avatar">${initials}</div>
+        <div class="account-info">
+          <div class="account-name">${escHtml(loc.name)}</div>
+          <div class="account-meta">${escHtml(meta)}</div>
+        </div>
+        <span class="theme-badge ${badgeClass}">
+          <span class="badge-dot"></span>${escHtml(badgeText)}
+        </span>
+        <div class="row-check">
+          <svg viewBox="0 0 14 14" fill="none">
+            <path d="M2 7l3.5 3.5L12 4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      `;
+
+      row.addEventListener('click', () => selectAccount(row, loc));
+      container.appendChild(row);
+    });
+  }
+
+  // ── Filtrar por búsqueda ──────────────────────────────────
+  function filterAccounts() {
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+    const filtered = allLocations.filter(l => l.name.toLowerCase().includes(q));
+    renderLocations(filtered);
+
+    if (filtered.length === 0 && allLocations.length > 0) {
+      document.getElementById('emptyState').style.display = 'flex';
+      document.getElementById('rowsContainer').style.display = 'none';
+    } else {
+      document.getElementById('emptyState').style.display = 'none';
+      document.getElementById('rowsContainer').style.display = 'block';
+    }
+  }
+
+  // ── Seleccionar tema ──────────────────────────────────────
+  function selectTheme(card) {
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedTheme = card.dataset.theme;
+    selectedName  = card.dataset.name;
+    updateActionBar();
+  }
+
+  // ── Seleccionar subcuenta ─────────────────────────────────
+  function selectAccount(row, loc) {
+    document.querySelectorAll('.account-row').forEach(r => r.classList.remove('selected-account'));
+    row.classList.add('selected-account');
+    selectedAccount = { locationId: loc.locationId, name: loc.name };
+    updateActionBar();
+  }
+
+  // ── Actualizar barra inferior ─────────────────────────────
+  function updateActionBar() {
+    const display = document.getElementById('selectionDisplay');
+    const btn = document.getElementById('applyBtn');
+
+    if (selectedTheme && selectedAccount) {
+      display.textContent = `"${selectedAccount.name}" → ${selectedName}`;
+      display.classList.remove('placeholder');
+      btn.disabled = false;
+    } else if (selectedAccount && !selectedTheme) {
+      display.textContent = `${selectedAccount.name} · elige un tema arriba`;
+      display.classList.add('placeholder');
+      btn.disabled = true;
+    } else if (selectedTheme && !selectedAccount) {
+      display.textContent = `Tema: ${selectedName} · selecciona una subcuenta`;
+      display.classList.add('placeholder');
+      btn.disabled = true;
+    } else {
+      display.textContent = '↑ Elige un tema y selecciona una subcuenta';
+      display.classList.add('placeholder');
+      btn.disabled = true;
+    }
+  }
+
+  // ── Aplicar tema ──────────────────────────────────────────
+  async function handleApply() {
+    if (!selectedTheme || !selectedAccount) return;
+
+    const btn = document.getElementById('applyBtn');
+    btn.disabled = true;
+    btn.textContent = 'Aplicando...';
+
+    try {
+      const res = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          accountId:  selectedAccount.locationId,
+          locationId: selectedAccount.locationId,
+          theme:      selectedTheme,
+          themeName:  selectedName,
+          timestamp:  new Date().toISOString()
+        })
+      });
+
+      if (!res.ok) throw new Error('Error al enviar los datos');
+
+      // Actualizar badge en la lista localmente
+      const loc = allLocations.find(l => l.locationId === selectedAccount.locationId);
+      if (loc) {
+        loc.currentTheme = { themeId: parseInt(selectedTheme), themeName: selectedName };
+      }
+      renderLocations(allLocations);
+
+      // Re-seleccionar la fila actualizada
+      const updatedRow = document.querySelector(`.account-row[data-location-id="${selectedAccount.locationId}"]`);
+      if (updatedRow) updatedRow.classList.add('selected-account');
+
+      showToast(`✓ ${selectedAccount.name} ahora tiene el tema ${selectedName}`, false);
+
+    } catch (err) {
+      showToast('Error al aplicar el tema. Intenta de nuevo.', true);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Aplicar tema';
+    }
+  }
+
+  // ── Estado de error ───────────────────────────────────────
+  function showError(msg) {
+    document.getElementById('skeletonState').style.display = 'none';
+    document.getElementById('errorStateMsg').textContent = msg;
+    document.getElementById('errorState').style.display = 'flex';
+    document.getElementById('accountsCount').textContent = 'Error';
+  }
+
+  // ── Toast ─────────────────────────────────────────────────
+  function showToast(msg, isError = false) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    toast.classList.toggle('error', isError);
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3500);
+  }
+
+  // ── Escape HTML ───────────────────────────────────────────
+  function escHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── Init ──────────────────────────────────────────────────
+  loadLocations();
+</script>
+</body>
+</html>
